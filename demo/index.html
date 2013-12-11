@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<title>Multiselectable demo</title>
+
+	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="../src/jquery.multiselectable.js"></script>
+
+	<script type="text/javascript">
+
+		$(function() {
+
+			$("table").multiselectable({
+
+				markSelected: function($row) {
+					$row.css("background-color", "yellow");
+				},
+
+				markUnselected: function($row) {
+					$row.css("background-color", "white");
+				}
+
+			}, function($selectedRows) {
+
+				$("#status").text($selectedRows.size() + " rows selected.");
+
+			});
+
+		});
+
+	</script>
+
+	<style type="text/css">
+		table { border-collapse: collapse; }
+		tr { border: 1px solid gray; }
+		td { padding: 1ex 1em; }
+	</style>
+
+</head>
+<body>
+
+<p id="status">No rows selected.</p>
+
+<table>
+
+	<tr><td>Row 1</td><td>Click to select a single row.</td></tr>
+	<tr><td>Row 2</td><td>Ctrl+click to toggle-select a row.</td></tr>
+	<tr><td>Row 3</td><td>Shift+click to select a range of rows.</td></tr>
+	<tr><td>Row 4</td><td>Ctrl+shift+click to toggle-select a range of rows.</td></tr>
+	<tr><td>Row 5</td><td></td></tr>
+	<tr><td>Row 6</td><td>Cell-selection option is planned.</td></tr>
+	<tr><td>Row 7</td><td></td></tr>
+	<tr><td>Row 8</td><td></td></tr>
+	<tr><td>Row 9</td><td></td></tr>
+
+</table>
+
+</body>
+</html>

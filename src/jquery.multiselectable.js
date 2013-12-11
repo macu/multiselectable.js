@@ -1,5 +1,5 @@
 /*!
- * Multiselectable jQuery plugin v0.1.1
+ * Multiselectable jQuery plugin v0.1.2
  * https://github.com/macu/multiselectable.js
  *
  * Copyright (c) 2013 Matt Cudmore
@@ -62,12 +62,16 @@
 				// consider multiple rows since start row
 				var prevIndex = $startRow.index();
 				var thisIndex = $thisRow.index();
+				// exclude start row if ctrl+shift+click
+				// (leave it unchanged on toggle range)
+				var ctrl = e.ctrlKey ? 1 : 0;
+				// get range
 				if (prevIndex < thisIndex) {
 					// add 1 to include this row
-					$thisRange = $selectableRows.slice(prevIndex, thisIndex + 1);
+					$thisRange = $selectableRows.slice(prevIndex + ctrl, thisIndex + 1);
 				} else {
 					// add 1 to include start row
-					$thisRange = $selectableRows.slice(thisIndex, prevIndex + 1);
+					$thisRange = $selectableRows.slice(thisIndex, prevIndex + 1 - ctrl);
 				}
 			} else {
 				// consider single row

@@ -5,6 +5,7 @@
 	"description": "jQuery plugin to enable multi-selection of table rows.",
 	"homepage": "https://github.com/macu/multiselectable.js",
 	"bugs": "https://github.com/macu/multiselectable.js/issues",
+	"demo": "https://rawgithub.com/macu/multiselectable.js/master/demo/index.html",
 	"author": {
 		"name": "Matt Cudmore",
 		"url": "https://github.com/macu"

@@ -1,3 +1,10 @@
+/*!
+ * Multiselectable jQuery plugin v0.1.1
+ * https://github.com/macu/multiselectable.js
+ *
+ * Copyright (c) 2013 Matt Cudmore
+ * Released under the MIT license
+ */
 (function() {
 
 	$.fn.multiselectable = function(options, cb) {

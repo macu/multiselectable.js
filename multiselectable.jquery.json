@@ -10,13 +10,11 @@
 		"name": "Matt Cudmore",
 		"url": "https://github.com/macu"
 	},
-	"licenses": [
-		{
-			"type": "MIT",
-			"https://github.com/macu/multiselectable.js/blob/master/LICENSE"
-		}
-	],
+	"licenses": [{
+		"type": "MIT",
+		"url": "https://github.com/macu/multiselectable.js/blob/master/LICENSE"
+	}],
 	"dependencies": {
-        "jquery": ">=1.5"
-    }
+		"jquery": ">=1.5"
+	}
 }

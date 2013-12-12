@@ -3,6 +3,8 @@ multiselectable.js
 
 jQuery plugin enabling multi-selection of table rows.
 
+([Demo](https://rawgithub.com/macu/multiselectable.js/master/demo/index.html))
+
 Usage
 -----
 

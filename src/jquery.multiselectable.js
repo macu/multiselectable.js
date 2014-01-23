@@ -32,6 +32,11 @@
 
 		$selectableRows.on("click", function(e) {
 
+			// Ignore click event if target is an input.
+			if ($(e.target).is("input,select")) {
+				return;
+			}
+
 			var $thisRow = $(this);
 
 			if (!(e.shiftKey || e.ctrlKey)) {

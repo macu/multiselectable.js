@@ -16,8 +16,7 @@ Apply to the `table` or `tbody` containing the selectable rows:
 
 ### Options
 
-The `markSelected` option defines a function to call for each row that becomes selected.
-Likewise `markUnselected` defines a function to call for each row that becomes unselected.
+The `markSelected` and `markUnselected` options define functions to call when the selection changes.
 
     $("table").multiselectable({
 
@@ -31,8 +30,7 @@ Likewise `markUnselected` defines a function to call for each row that becomes u
 
     });
 
-You may provide a function to call whenever the selection changes.
-This function receives a jQuery set of all the selected rows after the individual rows have been marked.
+You may provide a callback function that receives a jQuery set of currently selected rows whenever the selection changes. The individual rows are marked before the callback is invoked.
 
     $("table").multiselectable({}, function($selectedRows) {
         alert($selectedRows.size() + " rows selected.");

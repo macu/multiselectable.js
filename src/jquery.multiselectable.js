@@ -7,34 +7,25 @@
  */
 (function() {
 
+	var defaults = {
+		// Updates the UI to mark a row as selected.
+		markSelected: function($row) {
+			$row.addClass("selected");
+		},
+
+		// Updates the UI to mark a row as unselected.
+		markUnselected: function($row) {
+			$row.removeClass("selected");
+		}
+	};
+
 	$.fn.multiselectable = function(options, cb) {
 
-		var defaults = {
-
-			// the function to mark a row as selected
-			markSelected: function($row) {
-				$row.addClass("selected");
-			},
-
-			// the function to mark a row as unselected
-			markUnselected: function($row) {
-				$row.removeClass("selected");
-			}
-
-		};
-
-		var settings = $.extend({}, defaults, options);
+		options = $.extend(true, {}, defaults, options);
 
 		var $selectableRows = $(this).is("tr")
 			? $(this)
 			: $(this).find("tr");
-
-		// disable text selection on rows
-		// so that shift+click doesn't select text
-		$selectableRows
-			.attr('unselectable', 'on')
-			.css('user-select', 'none')
-			.on('selectstart', false);
 
 		var $selectedRows = $();
 		var $startRow;
@@ -44,7 +35,7 @@
 			var $thisRow = $(this);
 
 			if (!(e.shiftKey || e.ctrlKey)) {
-				// reset to single selection
+				// Reset to single row selection.
 				$startRow = $thisRow;
 				setSelected($thisRow);
 				callback();
@@ -52,39 +43,39 @@
 			}
 
 			if (!$startRow) {
-				// start at this row if not another
+				// Start current range at this row if not before.
 				$startRow = $thisRow;
 			}
 
-			// get the current range of rows
+			// Get the current range of rows to update.
 			var $thisRange;
 			if (e.shiftKey) {
-				// consider multiple rows since start row
+				// Update all rows between the start row and this row.
 				var prevIndex = $startRow.index();
 				var thisIndex = $thisRow.index();
-				// exclude start row if ctrl+shift+click
-				// (leave it unchanged on toggle range)
+				// Leave the start row unchanged on toggle range.
 				var ctrl = e.ctrlKey ? 1 : 0;
-				// get range
 				if (prevIndex < thisIndex) {
-					// add 1 to include this row
+					// This row is at the bottom of the current range.
+					// Add 1 to include this row.
 					$thisRange = $selectableRows.slice(prevIndex + ctrl, thisIndex + 1);
 				} else {
-					// add 1 to include start row
+					// This row is at the top of the current range.
+					// Add 1 to include start row.
 					$thisRange = $selectableRows.slice(thisIndex, prevIndex + 1 - ctrl);
 				}
 			} else {
-				// consider single row
+				// Update a single row.
 				$thisRange = $thisRow;
-				// reset start row for next time
+				// Set start row for next range selection.
 				$startRow = $thisRow;
 			}
 
 			if (e.ctrlKey) {
-				// toggle selection across range
+				// Toggle selection across current range.
 				togSelected($thisRange);
 			} else {
-				// set selection across range
+				// Set selection across current range.
 				setSelected($thisRange);
 			}
 
@@ -93,11 +84,10 @@
 		});
 
 		function setSelected($rows) {
-			// mark all unselected
+			// Clear the previous selection.
 			$selectedRows.each(markUnselected);
-			// set selected to given rows
+			// Set the selection as given.
 			$selectedRows = $rows;
-			// mark all selected
 			$selectedRows.each(markSelected);
 		}
 
@@ -115,15 +105,15 @@
 
 		function markSelected($row) {
 			if (!($row instanceof jQuery)) $row = $(this);
-			if (typeof settings.markSelected == "function") {
-				settings.markSelected($row);
+			if (typeof options.markSelected == "function") {
+				options.markSelected($row);
 			}
 		}
 
 		function markUnselected($row) {
 			if (!($row instanceof jQuery)) $row = $(this);
-			if (typeof settings.markUnselected == "function") {
-				settings.markUnselected($row);
+			if (typeof options.markUnselected == "function") {
+				options.markUnselected($row);
 			}
 		}
 
@@ -133,6 +123,33 @@
 			}
 		}
 
+		// Disable text selection in the selectable rows
+		// while the SHIFT key is pressed.
+		$(document).on("keydown", function(e) {
+			if (e.shiftKey) {
+				disableTextSelection($selectableRows);
+				var shiftReleased = function(e) {
+					if (!e.shiftKey) {
+						enableTextSelection($selectableRows);
+						$(document).off("keyup", shiftReleased);
+					}
+				};
+				$(document).on("keyup", shiftReleased);
+			}
+		});
+
 	};
+
+	function disableTextSelection($e) {
+		$e.attr('unselectable', 'on')
+			.css('user-select', 'none')
+			.on('selectstart', false);
+	}
+
+	function enableTextSelection($e) {
+		$e.attr('unselectable', 'off')
+			.css('user-select', 'text')
+			.off('selectstart');
+	}
 
 })(jQuery);

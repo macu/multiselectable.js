@@ -1,8 +1,8 @@
 {
 	"name": "multiselectable",
 	"version": "0.1.2",
-	"title": "jQuery Selectable Tables",
-	"description": "jQuery plugin to enable multi-selection of table rows.",
+	"title": "jQuery Multiselectable Tables",
+	"description": "jQuery plugin enabling multi-selection of table rows.",
 	"homepage": "https://github.com/macu/multiselectable.js",
 	"bugs": "https://github.com/macu/multiselectable.js/issues",
 	"demo": "https://rawgithub.com/macu/multiselectable.js/master/demo/index.html",

@@ -1,5 +1,5 @@
 /*!
- * Multiselectable jQuery plugin v0.1.2
+ * Multiselectable jQuery plugin v0.1.3
  * https://github.com/macu/multiselectable.js
  *
  * Copyright (c) 2013 Matt Cudmore
@@ -16,7 +16,10 @@
 		// Updates the UI to mark a row as unselected.
 		markUnselected: function($row) {
 			$row.removeClass("selected");
-		}
+		},
+
+		// Selector for elements that consume click events.
+		consumers: "a,button,input,select",
 	};
 
 	$.fn.multiselectable = function(options, cb) {
@@ -32,8 +35,8 @@
 
 		$selectableRows.on("click", function(e) {
 
-			// Ignore click event if target is an input.
-			if ($(e.target).is("input,select")) {
+			// Ignore click if target consumes events.
+			if ($(e.target).is(options.consumers)) {
 				return;
 			}
 

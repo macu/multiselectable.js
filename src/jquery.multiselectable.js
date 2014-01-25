@@ -41,8 +41,10 @@
 			}
 
 			var $thisRow = $(this);
+			var rangeSelect = e.shiftKey;
+			var toggleSelect = e.ctrlKey || e.altKey || e.metaKey;
 
-			if (!(e.shiftKey || e.ctrlKey)) {
+			if (!(rangeSelect || toggleSelect)) {
 				// Reset to single row selection.
 				$startRow = $thisRow;
 				setSelected($thisRow);
@@ -57,20 +59,20 @@
 
 			// Get the current range of rows to update.
 			var $thisRange;
-			if (e.shiftKey) {
+			if (rangeSelect) {
 				// Update all rows between the start row and this row.
 				var prevIndex = $startRow.index();
 				var thisIndex = $thisRow.index();
 				// Leave the start row unchanged on toggle range.
-				var ctrl = e.ctrlKey ? 1 : 0;
+				var excludeStart = toggleSelect ? 1 : 0;
 				if (prevIndex < thisIndex) {
 					// This row is at the bottom of the current range.
 					// Add 1 to include this row.
-					$thisRange = $selectableRows.slice(prevIndex + ctrl, thisIndex + 1);
+					$thisRange = $selectableRows.slice(prevIndex + excludeStart, thisIndex + 1);
 				} else {
 					// This row is at the top of the current range.
 					// Add 1 to include start row.
-					$thisRange = $selectableRows.slice(thisIndex, prevIndex + 1 - ctrl);
+					$thisRange = $selectableRows.slice(thisIndex, prevIndex + 1 - excludeStart);
 				}
 			} else {
 				// Update a single row.
@@ -79,7 +81,7 @@
 				$startRow = $thisRow;
 			}
 
-			if (e.ctrlKey) {
+			if (toggleSelect) {
 				// Toggle selection across current range.
 				togSelected($thisRange);
 			} else {

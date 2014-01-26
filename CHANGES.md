@@ -1,6 +1,9 @@
 Change log
 ==========
 
+v0.1.4 (work in progress)
+- Improvements to code efficiency
+
 v0.1.3 (2014/01/26)
 - Add the `consumers` option, to ignore clicks on consumers
 - Include `a` and `button` elements in default consumers

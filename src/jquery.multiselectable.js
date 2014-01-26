@@ -1,5 +1,5 @@
 /*!
- * Multiselectable jQuery plugin v0.1.3
+ * Multiselectable jQuery plugin v0.1.4-wip
  * https://github.com/macu/multiselectable.js
  *
  * Copyright (c) 2013 Matt Cudmore
@@ -103,12 +103,13 @@
 
 		function togSelected($rows) {
 			$rows.each(function() {
-				if ($selectedRows.is($(this))) {
-					$selectedRows = $selectedRows.not($(this));
-					markUnselected($(this));
+				var $row = $(this);
+				if ($selectedRows.is($row)) {
+					$selectedRows = $selectedRows.not($row);
+					markUnselected($row);
 				} else {
-					$selectedRows = $selectedRows.add($(this));
-					markSelected($(this));
+					$selectedRows = $selectedRows.add($row);
+					markSelected($row);
 				}
 			});
 		}
